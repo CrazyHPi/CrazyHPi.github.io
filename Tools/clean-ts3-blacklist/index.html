@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="为什么会有这个东西由于某原因仍有很多人正在使用某盗版服务器提供商的服务器因此需要使用“中文破解版”连接至他们的服务端，但当你需要同时连接新旧版服务器时，你会发现旧版服务器已被列入黑名单，所以你需要清除黑名单">
+<meta name="keywords" content="Teamspeak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="清除Teamspeak3服务器黑名单，连接到低版本服务器">
+<meta property="og:url" content="http://blog.crazyhpi.tk/Tools/clean-ts3-blacklist/index.html">
+<meta property="og:site_name" content="Hey, wake up!">
+<meta property="og:description" content="为什么会有这个东西由于某原因仍有很多人正在使用某盗版服务器提供商的服务器因此需要使用“中文破解版”连接至他们的服务端，但当你需要同时连接新旧版服务器时，你会发现旧版服务器已被列入黑名单，所以你需要清除黑名单">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-06T17:46:59.535Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="清除Teamspeak3服务器黑名单，连接到低版本服务器">
+<meta name="twitter:description" content="为什么会有这个东西由于某原因仍有很多人正在使用某盗版服务器提供商的服务器因此需要使用“中文破解版”连接至他们的服务端，但当你需要同时连接新旧版服务器时，你会发现旧版服务器已被列入黑名单，所以你需要清除黑名单">
+  <link rel="canonical" href="http://blog.crazyhpi.tk/Tools/clean-ts3-blacklist/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>清除Teamspeak3服务器黑名单，连接到低版本服务器 | Hey, wake up!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hey, wake up!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://blog.crazyhpi.tk/Tools/clean-ts3-blacklist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CrazyH">
+      <meta itemprop="description" content="为了记录？">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey, wake up!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">清除Teamspeak3服务器黑名单，连接到低版本服务器
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-28 00:06:34" itemprop="dateCreated datePublished" datetime="2019-09-28T00:06:34+08:00">2019-09-28</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-07 01:46:59" itemprop="dateModified" datetime="2020-02-07T01:46:59+08:00">2020-02-07</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="为什么会有这个东西"><a href="#为什么会有这个东西" class="headerlink" title="为什么会有这个东西"></a>为什么会有这个东西</h2><p>由于某原因仍有很多人正在使用某盗版服务器提供商的服务器</p><p>因此需要使用“中文破解版”连接至他们的服务端，但当你需要同时连接新旧版服务器时，你会发现旧版服务器已被列入黑名单，所以你需要清除黑名单</p><a id="more"></a>
+
+<p><strong>在使用这个批处理前，请先考虑使用<a href="http://blog.crazyh.tk/Tutorial/ez-build-ts3server/" target="_blank" rel="noopener">正版服务器（免费32人槽位）</a></strong></p>
+<h2 id="怎么使用"><a href="#怎么使用" class="headerlink" title="怎么使用"></a>怎么使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">color a</span><br><span class="line">TITLE TeamSpeak 3 Server Blacklisted status remover v1.0</span><br><span class="line">echo.</span><br><span class="line">echo TeamSpeak 3 Server Blacklisted status remover v1.0</span><br><span class="line">:choice</span><br><span class="line">SET /P C=&quot;This action will remove teamspeak3 server blacklisted status by alter your Windows firewall rules and your system hosts file. Do you wish to continue? [Y/n]: &quot;</span><br><span class="line">for %%? in (Y) do if /I &quot;%C%&quot;==&quot;%%?&quot; goto setup</span><br><span class="line">for %%? in (n) do if /I &quot;%C%&quot;==&quot;%%?&quot; exit</span><br><span class="line">goto choice</span><br><span class="line">:setup</span><br><span class="line">taskkill /f /im &quot;ts3client_win32.exe&quot; &gt; NUL</span><br><span class="line">taskkill /f /im &quot;ts3client_win64.exe&quot; &gt; NUL</span><br><span class="line">netsh advfirewall firewall add rule name=&quot;IP Block TeamSpeak Blacklist&quot; dir=out interface=any action=block remoteip=104.20.74.196/32</span><br><span class="line">del &quot;%APPDATA%\TS3Client\resolved.dat&quot; &gt; NUL</span><br><span class="line">del &quot;%APPDATA%\TS3Client\cache.dat&quot; &gt; NUL</span><br><span class="line">del &quot;%APPDATA%\TS3Client\cache\webserverlist.dat&quot; &gt; NUL</span><br><span class="line">del &quot;%APPDATA%\TS3Client\cache\webserverlistcache.dat&quot; &gt; NUL</span><br><span class="line">echo 0.0.0.0 blacklist2.teamspeak.com &gt;&gt; echo.&gt;&gt;%systemroot%\system32\drivers\etc\hosts</span><br><span class="line">echo 127.0.0.1 blacklist2.teamspeak.com &gt;&gt; echo.&gt;&gt;%systemroot%\system32\drivers\etc\hosts</span><br><span class="line">echo 0.0.0.0 104.20.74.196 &gt;&gt; echo.&gt;&gt;%systemroot%\system32\drivers\etc\hosts</span><br><span class="line">echo 127.0.0.1 104.20.74.196 &gt;&gt; echo.&gt;&gt;%systemroot%\system32\drivers\etc\hosts</span><br><span class="line">echo Now you may able to connect to blacklisted servers.</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+
+<p>新建一个文本文档，后缀改为<code>.bat</code>，复制粘贴保存，管理员运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">::如果你的Teamspeak没有安装在默认目录可能不会完全清除</span><br><span class="line">::你需要找到`TS3Client`文件夹手动删除以下文件：</span><br><span class="line"></span><br><span class="line">resolved.dat</span><br><span class="line">cache.dat</span><br><span class="line">cache\webserverlist.dat</span><br><span class="line">cache\webserverlistcache.dat</span><br></pre></td></tr></table></figure>
+
+<p>或者直接下载<a href="ClearTs3BlackList.bat">本文件</a>，然后管理员运行</p>
+<h2 id="再说几句"><a href="#再说几句" class="headerlink" title="再说几句"></a>再说几句</h2><p>这个东西是我之前不知道什么时候在神奇的<a href="https://www.google.com/" target="_blank" rel="noopener">Google</a>上找到的，现在发出来但是找不到原链接了，那天找到了一定会补在Reference里</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><del>还没找到，找到一定补上，绝对不咕咕咕</del></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>CrazyH</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.crazyhpi.tk/Tools/clean-ts3-blacklist/" title="清除Teamspeak3服务器黑名单，连接到低版本服务器">http://blog.crazyhpi.tk/Tools/clean-ts3-blacklist/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Teamspeak/" rel="tag"># Teamspeak</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Tools/steam-acc-edit/" rel="next" title="Steam账号编辑器">
+                  <i class="fa fa-chevron-left"></i> Steam账号编辑器
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/Tools/csgo-cfg/" rel="prev" title="csgo配置">
+                  csgo配置 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NjgxNS8yMzMxNg=="></div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会有这个东西"><span class="nav-number">1.</span> <span class="nav-text">为什么会有这个东西</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么使用"><span class="nav-number">2.</span> <span class="nav-text">怎么使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再说几句"><span class="nav-number">3.</span> <span class="nav-text">再说几句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CrazyH</p>
+  <div class="site-description" itemprop="description">为了记录？</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrazyH</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+</body>
+</html>

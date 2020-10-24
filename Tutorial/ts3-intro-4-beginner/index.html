@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="写在前面这是给未使用过Teamspeak的人的白话文说明书说好的ts高级食用教程呢需要搭建服务器的请左转Teamspeak服务器搭建">
+<meta name="keywords" content="Teamspeak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Teamspeak3新用户指南">
+<meta property="og:url" content="http://blog.crazyhpi.tk/Tutorial/ts3-intro-4-beginner/index.html">
+<meta property="og:site_name" content="Hey, wake up!">
+<meta property="og:description" content="写在前面这是给未使用过Teamspeak的人的白话文说明书说好的ts高级食用教程呢需要搭建服务器的请左转Teamspeak服务器搭建">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/OT8b2Mi3VUjrXZN.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/GoVfCYA8UcHmTiZ.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/YXm8CpxkQuOzHFZ.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/MVcpQSTDJBUduYC.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/ANFg64GkMywt2h1.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/QmO5GeSdXnpqTuV.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/03/RrlDEQdgaAU7IXJ.png">
+<meta property="og:updated_time" content="2019-10-02T17:03:13.127Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Teamspeak3新用户指南">
+<meta name="twitter:description" content="写在前面这是给未使用过Teamspeak的人的白话文说明书说好的ts高级食用教程呢需要搭建服务器的请左转Teamspeak服务器搭建">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/02/OT8b2Mi3VUjrXZN.png">
+  <link rel="canonical" href="http://blog.crazyhpi.tk/Tutorial/ts3-intro-4-beginner/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Teamspeak3新用户指南 | Hey, wake up!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hey, wake up!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://blog.crazyhpi.tk/Tutorial/ts3-intro-4-beginner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CrazyH">
+      <meta itemprop="description" content="为了记录？">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hey, wake up!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Teamspeak3新用户指南
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-02 22:31:14" itemprop="dateCreated datePublished" datetime="2019-10-02T22:31:14+08:00">2019-10-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-03 01:03:13" itemprop="dateModified" datetime="2019-10-03T01:03:13+08:00">2019-10-03</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tutorial/" itemprop="url" rel="index"><span itemprop="name">Tutorial</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>这是给未使用过Teamspeak的人的白话文说明书<del>说好的ts高级食用教程呢</del></p><p>需要搭建服务器的请左转<a href="http://blog.crazyh.tk/Tutorial/ez-build-ts3server/" target="_blank" rel="noopener">Teamspeak服务器搭建</a></p><a id="more"></a>
+
+<p>多图预警 请耐心阅读</p>
+<h3 id="为什么要使用Teamspeak"><a href="#为什么要使用Teamspeak" class="headerlink" title="为什么要使用Teamspeak"></a>为什么要使用Teamspeak</h3><blockquote>
+<p>轻量，简单易用，<strong><u>无广告</u></strong>，内存占用小<del>当你电脑⑧太行的时候</del>，内置文件服务器，有丰富的快捷键以及自定义选项，无许可证即可享有超大32人服务器<br><del>某10槽位盗版服务器一个月要多少钱来着？</del></p>
+</blockquote>
+<p>至于为什么不使用游戏内语音？音质渣 按键设置麻烦 <strong>没有感应麦</strong><br>为什么不用YY? 广告多 对电脑造成千万暴击 <strong>没有感应麦</strong><br>为什么不用QQ？ 音量调节不友好 按键麦都没有 <strong>没有感应麦</strong><br>为什么不用discord？ <del>墙了</del> 没有国内服务器</p>
+<h2 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>你可以在<a href="https://www.teamspeak.com/en/your-download/" target="_blank" rel="noopener">Teamspeak官网下载页面</a>找到你需要的版本</p>
+<p>此处以<code>WINDOWS CLIENT 64-BIT 3.3.0</code>为例</p>
+<p><img src="https://i.loli.net/2019/10/02/OT8b2Mi3VUjrXZN.png" alt="image.png"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>下载完毕后一路确定安装</p>
+<p><img src="https://i.loli.net/2019/10/02/GoVfCYA8UcHmTiZ.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2019/10/02/YXm8CpxkQuOzHFZ.png" alt="image.png"></p>
+<blockquote>
+<p>此处Overwolf可选安装，能提供游戏内嵌入界面</p>
+</blockquote>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>安装完之后会提示建立myTeamspeak账号，根据自己需求选择是否创建</p>
+<p>打开Teamspeak之后，你会看到这样一个界面<br><img src="https://i.loli.net/2019/10/02/MVcpQSTDJBUduYC.png" alt="image.png"></p>
+<p>点击左上角<code>Connection</code>–<code>connect</code>，会弹出以下窗口<br><img src="https://i.loli.net/2019/10/02/ANFg64GkMywt2h1.png" alt="image.png"></p>
+<p>在<code>Server Nickname or Address</code>中输入服务器ip域名或是昵称（Teamspeak独有的链接方式，会在以后的文章里讲到）</p>
+<p>可用的连接方式可能如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">114.514.19.19: <span class="comment">#ip地址加端口</span></span><br><span class="line">this.is.a.domain:12450 <span class="comment">#域名加端口</span></span><br><span class="line">privateserver <span class="comment">#昵称</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>Nickname</code>中填入你喜欢的名字</p>
+<p>点击connect就可以连接进服务器了</p>
+<p>如图，为一个服务器示例<br><img src="https://i.loli.net/2019/10/02/QmO5GeSdXnpqTuV.png" alt="image.png"></p>
+<blockquote>
+<p>插一句 我的自建Teamspeak服务器地址为4500（香港）以及4500backup（广州，带宽较小）</p>
+</blockquote>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><h3 id="中文语言"><a href="#中文语言" class="headerlink" title="中文语言"></a>中文语言</h3><p>在主界面上<code>Tools</code>-<code>Options</code>-<code>Addons</code>-<code>Browse online</code>中，搜索<code>zh</code>，下载安装繁体中文语言包（简体中文为语音包，非文本翻译包），安装完成后重启就有汉化了</p>
+<h3 id="调整语音设置"><a href="#调整语音设置" class="headerlink" title="调整语音设置"></a>调整语音设置</h3><p>在主界面上<code>Tools</code>-<code>Options</code>-<code>Capture</code>，你会看到如下界面</p>
+<p><img src="https://i.loli.net/2019/10/03/RrlDEQdgaAU7IXJ.png" alt="image.png"></p>
+<p>其中，我们主要调整<code>Voice Activation Detection</code>：<br>点击<code>Begin Test</code>，不断调整标尺，直到能清楚的听到自己的声音的同时不会收录环境噪音</p>
+<p>其他选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Echo reduction <span class="comment">#减少回音</span></span><br><span class="line">Echo cancellation <span class="comment">#回音消除</span></span><br><span class="line">Remove background noise <span class="comment">#消除背景噪音</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你需要调整他人的音量，直接在主界面右键他人，调整音量即可</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>暂时想到这些，以后有想到什么有帮助的可能会再补充</p>
+<p>如果你能转发给他人并向他人介绍Teamspeak这非常好用的语音软件那就更好了</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>CrazyH</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.crazyhpi.tk/Tutorial/ts3-intro-4-beginner/" title="Teamspeak3新用户指南">http://blog.crazyhpi.tk/Tutorial/ts3-intro-4-beginner/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Teamspeak/" rel="tag"># Teamspeak</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Tools/csgo-cfg/" rel="next" title="csgo配置">
+                  <i class="fa fa-chevron-left"></i> csgo配置
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/uncategorized/hexo/" rel="prev" title="hexo">
+                  hexo <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NjgxNS8yMzMxNg=="></div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用Teamspeak"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用Teamspeak</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载与安装"><span class="nav-number">2.</span> <span class="nav-text">下载与安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.2.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始使用"><span class="nav-number">3.</span> <span class="nav-text">开始使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-number">4.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中文语言"><span class="nav-number">4.1.</span> <span class="nav-text">中文语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调整语音设置"><span class="nav-number">4.2.</span> <span class="nav-text">调整语音设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">5.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CrazyH</p>
+  <div class="site-description" itemprop="description">为了记录？</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrazyH</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+</body>
+</html>

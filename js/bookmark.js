@@ -36,7 +36,8 @@ window.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('pjax:send', doSaveScroll);
     }
     // Save the position by clicking the icon
-    link.addEventListener('click', () => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
       doSaveScroll();
       window.anime({
         targets : link,
